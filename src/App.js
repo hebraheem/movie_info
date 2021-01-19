@@ -1,7 +1,10 @@
 import { CssBaseline, makeStyles } from "@material-ui/core";
 import React from "react";
-import Navbar from "./components/Navbar/Navbar";
-import Drawer from "./components/Drawer/Drawer";
+import Navbar from "./components/Navbar";
+import Drawer from "./components/Drawer";
+import Home from "./components/Home";
+import SignUp from "./components/SignUp";
+
 
 const useStyles = makeStyles(() => ({
    main: {
@@ -14,7 +17,9 @@ function App() {
   return (
     <>
       <div className={classes.main}>
-        <Navbar />
+        {/* <Navbar />
+        <Home/> */}
+        <SignUp/>
       </div>
       <div>
         <Drawer />

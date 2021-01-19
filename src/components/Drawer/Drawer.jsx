@@ -8,31 +8,25 @@ import {
   ListItemIcon,
   makeStyles,
 } from "@material-ui/core";
-//import {InboxIcon, MailIcon} from "@material-ui/icons"
+import {HighQuality, MovieFilter } from "@material-ui/icons"
 
 const useStyles = makeStyles(() => ({
-  drawer: {
-    width: "20%",
-    marginTop: "40vh",
-    flexShrink: 0,
+  list: {
+    paddingTop: "30vh",
   },
 }));
 
 const Drawer = () => {
     const classes = useStyles();
     return (
-      <MuiDrawer
-        variant="permanent"
-        anchor="left"
-        className={classes.drawer}
-      >
-        <div/>
+      <MuiDrawer variant="permanent" anchor="left" className={classes.drawer}>
+        <div />
         <Divider />
-        <List>
+        <List className= {classes.list}>
           {["Movies", "Movies by Date"].map((text, index) => (
             <ListItem button key={text}>
               <ListItemIcon>
-                {/* {index % 2 === 0 ? <InboxIcon /> : <MailIcon />} */}
+                {index % 2 === 0 ? <HighQuality /> : <MovieFilter />}
               </ListItemIcon>
               <ListItemText primary={text} />
             </ListItem>

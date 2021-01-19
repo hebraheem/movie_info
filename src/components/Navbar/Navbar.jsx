@@ -8,9 +8,6 @@ import {
 import React from "react";
 
 const useStyles = makeStyles(() => ({
-  appBar: {
-    width: "80%",
-  },
   logo: {
     textShadow: "2px 2px #ff0000",
     '&:hover' : {
@@ -30,7 +27,7 @@ const useStyles = makeStyles(() => ({
 const Navbar = () => {
   const classes = useStyles();
   return (
-    <AppBar className={classes.appBar}>
+    <AppBar className={classes.appBar} position="static">
       <Toolbar>
         <Grid container>
           <Grid item sm={2}>

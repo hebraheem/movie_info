@@ -14,6 +14,7 @@ import {
   VpnKey,
 } from "@material-ui/icons";
 import React from "react";
+import {useMovieConsumer} from "../context"
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -21,14 +22,6 @@ const useStyles = makeStyles((theme) => ({
     margin: "50px auto",
     padding: theme.spacing(4),
   },
-//   root: {
-//     "& > *": {
-//       margin: "auto",
-//       marginRight: theme.spacing(3),
-//       width: "27ch",
-//       marginBottom: theme.spacing(4),
-//     },
-//   },
   input: {
     width: "94%",
     paddingBottom: theme.spacing(4),
@@ -50,6 +43,8 @@ const useStyles = makeStyles((theme) => ({
 
 const LogIn = () => {
   const classes = useStyles();
+  const {hello} = useMovieConsumer();
+  console.log(hello)
   return (
     <Paper className={classes.paper}>
       <Typography variant="h2" className={classes.header}>

@@ -24,7 +24,7 @@ function App() {
         <LogIn/>
       </div>
       <div>
-        <Drawer />
+        {/* <Drawer /> */}
       </div>
       <CssBaseline />
     </>

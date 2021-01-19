@@ -1,13 +1,18 @@
-import React, {useContext} from 'react'
+import React, { useContext } from "react";
 
 const movieContext = React.createContext();
 
-export const movieProvider= ({children})=>{
-    <movieContext.Provider value={{hello: "hello"}}>
-    {children}
+export const MovieProvider = ({ children }) => {
+    const hello = {
+        name: "ibrahim"
+    }
+  return (
+    <movieContext.Provider value={{hello}}>
+      {children}
     </movieContext.Provider>
-}
+  );
+};
 
-export const movieConsumer=()=>{
-    return useContext(movieContext)
-}
+export const useMovieConsumer = () => {
+  return useContext(movieContext);
+};

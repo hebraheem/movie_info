@@ -3,15 +3,15 @@ import ReactDOM from "react-dom";
 import "./index.css";
 import { BrowserRouter as Router } from "react-router-dom";
 import App from "./App";
-import { movieProvider } from "./context";
+import { MovieProvider } from "./context";
 
 ReactDOM.render(
   <React.StrictMode>
-    <movieProvider>
+    <MovieProvider>
       <Router>
         <App />
       </Router>
-    </movieProvider>
+    </MovieProvider>
   </React.StrictMode>,
   document.getElementById("root")
 );

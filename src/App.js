@@ -4,6 +4,7 @@ import Navbar from "./components/Navbar";
 import Drawer from "./components/Drawer";
 import Home from "./components/Home";
 import SignUp from "./components/SignUp";
+import LogIn from "./components/LogIn";
 
 
 const useStyles = makeStyles(() => ({
@@ -19,7 +20,8 @@ function App() {
       <div className={classes.main}>
         {/* <Navbar />
         <Home/> */}
-        <SignUp/>
+        {/* <SignUp/> */}
+        <LogIn/>
       </div>
       <div>
         <Drawer />

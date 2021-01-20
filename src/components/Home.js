@@ -2,6 +2,7 @@ import { Button, makeStyles } from "@material-ui/core";
 import React from "react";
 import { ExitToApp, Telegram } from "@material-ui/icons";
 import download from '../img/download.jpeg'
+import {Link} from "react-router-dom"
 
 const useStyles = makeStyles(() => ({
   button: {
@@ -14,6 +15,10 @@ const useStyles = makeStyles(() => ({
     justifyContent: "center",
     alignItems: "center",
   },
+  link: {
+    textDecoration: "none",
+    color: "white"
+  }
 }));
 
 const Home = () => {
@@ -25,9 +30,11 @@ const Home = () => {
         color="primary"
         size="large"
         startIcon={<Telegram />}
-        style={{marginRight: "20px"}}
+        style={{ marginRight: "20px" }}
       >
-        Sing Up
+        <Link className={classes.link} to="/signup">
+          Sing Up
+        </Link>
       </Button>
       <Button
         variant="contained"
@@ -35,7 +42,10 @@ const Home = () => {
         size="large"
         startIcon={<ExitToApp />}
       >
-        Log In
+        <Link className={classes.link} to="/login">
+          {" "}
+          Log In
+        </Link>
       </Button>
     </div>
   );

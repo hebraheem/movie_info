@@ -9,12 +9,18 @@ import {
   makeStyles,
 } from "@material-ui/core";
 import {HighQuality, MovieFilter } from "@material-ui/icons"
+import {NavLink} from 'react-router-dom';
 
 const useStyles = makeStyles(() => ({
   list: {
     paddingTop: "30vh",
   },
 }));
+
+const menu = [
+  {menu: "", link: ""},
+
+]
 
 const Drawer = () => {
     const classes = useStyles();
@@ -24,7 +30,7 @@ const Drawer = () => {
         <Divider />
         <List className= {classes.list}>
           {["Movies", "Movies by Date"].map((text, index) => (
-            <ListItem button key={text}>
+            <ListItem button key= {text}>
               <ListItemIcon>
                 {index % 2 === 0 ? <HighQuality /> : <MovieFilter />}
               </ListItemIcon>

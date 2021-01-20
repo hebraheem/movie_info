@@ -13,18 +13,19 @@ const useStyles = makeStyles(() => ({
     paddingLeft: "200px"
   },
 }));
+
 function App() {
   const classes = useStyles();
   return (
     <>
       <div className={classes.main}>
-        {/* <Navbar />
-        <Home/> */}
+        <Navbar />
+        <Home/>
         {/* <SignUp/> */}
-        <LogIn/>
+        {/* <LogIn/> */}
       </div>
       <div>
-        {/* <Drawer /> */}
+        <Drawer />
       </div>
       <CssBaseline />
     </>

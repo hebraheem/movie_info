@@ -13,7 +13,7 @@ import {
   MailOutline,
   VpnKey,
 } from "@material-ui/icons";
-import React from "react";
+import React,{useRef} from "react";
 import {useMovieConsumer} from "../context"
 
 const useStyles = makeStyles((theme) => ({
@@ -42,6 +42,8 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const LogIn = () => {
+const emailRef = useRef();
+const passwordRef= useRef();
   const classes = useStyles();
   const {hello} = useMovieConsumer();
   console.log(hello)
@@ -57,6 +59,7 @@ const LogIn = () => {
       <div>
         <TextField
           className={classes.input}
+          ref = {emailRef}
           label="Email"
           variant="outlined"
           InputProps={{
@@ -71,6 +74,7 @@ const LogIn = () => {
       <div>
         <TextField
           className={classes.input}
+          ref ={passwordRef}
           label="Password"
           type="password"
           variant="outlined"

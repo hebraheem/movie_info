@@ -8,9 +8,10 @@ import {
   Divider,
 } from "@material-ui/core";
 import { ExitToApp, MailOutline } from "@material-ui/icons";
-import React, { useRef } from "react";
-//import { useMovieConsumer } from "../context";
+import React, { useState } from "react";
+import { useMovieConsumer } from "../context";
 import { Link } from "react-router-dom";
+import Snack from "./Snack";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -34,8 +35,20 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const ResetPass = () => {
-  const emailRef = useRef();
+  const { resetPassword } = useMovieConsumer();
   const classes = useStyles();
+  const [message, setMessage] = useState("");
+  const [error, setError] = useState("");
+  const [emailField, setEmailField] = useState("");
+
+  const handleReset = async() => {
+    try {
+      await resetPassword(emailField);
+      setMessage("Password reset send, Check your Email.");
+    } catch {
+      setError("Password reset failed");
+    }
+  };
 
   return (
     <Paper className={classes.paper}>
@@ -45,13 +58,17 @@ const ResetPass = () => {
       <Typography variant="body1" className={classes.body}>
         Provide your email to reset password
       </Typography>
+      {error && <Snack severity="error" message={error} />}
+      {message && <Snack severity="success" message={message} />}
       <Divider className={classes.body} />
-      <div>
+      <form>
         <TextField
           className={classes.input}
-          ref={emailRef}
+          value={emailField}
           label="Email"
+          required
           variant="outlined"
+          onChange={(e) => setEmailField(e.target.value)}
           InputProps={{
             startAdornment: (
               <InputAdornment position="start">
@@ -60,22 +77,27 @@ const ResetPass = () => {
             ),
           }}
         />
-      </div>
-      <div style={{display:"flex", justifyContent: "space-between"}}>
-        <Button
-          endIcon={<ExitToApp />}
-          variant="contained"
-          color="primary"
-          size="large"
-        >
-          Reset
-        </Button>
-        <Button variant="outlined" color="primary" size="large">
-          <Link style={{ textDecoration: "none", color: "black" }} to="/login">
-            Go back
-          </Link>
-        </Button>
-      </div>
+        <div style={{ display: "flex", justifyContent: "space-between" }}>
+          <Button
+            endIcon={<ExitToApp />}
+            variant="contained"
+            color="primary"
+            size="large"
+            onClick={handleReset}
+          >
+            Reset
+          </Button>
+
+          <Button variant="outlined" color="primary" size="large">
+            <Link
+              style={{ textDecoration: "none", color: "black" }}
+              to="/login"
+            >
+              Go back
+            </Link>
+          </Button>
+        </div>
+      </form>
     </Paper>
   );
 };

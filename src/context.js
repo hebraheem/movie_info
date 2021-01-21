@@ -6,8 +6,22 @@ const movieContext = React.createContext();
 const moviesUrl = "http://api.tvmaze.com/shows";
 const movies_infoUrl = "http://api.tvmaze.com/shows/20";
 //const movie_date = "http://api.tvmaze.com/schedule?country=US&date=2020-12-24";
+const initialValue = {
+  firstname: "",
+  lastname: "",
+  email: "",
+  password: "",
+  conPass: "",
+};
+
+const loginValue = {
+  email: "",
+  password: "",
+};
 
 export const MovieProvider = ({ children }) => {
+  const [input, setInput] = useState(initialValue);
+  const [logInput, setLogInput] = useState(loginValue);
   const [currentUser, setCurrentUser] = useState("");
   const [movies, setMovies] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -38,12 +52,12 @@ export const MovieProvider = ({ children }) => {
     return currentUser.updateEmail(email);
   }
 
-    // useEffect(() => {
-    //   const unsuscirbe = auth.onAuthStateChanged((user) => {
-    //     setCurrentUser(user);
-    //   });
-    //   return unsuscirbe;
-    // }, []);
+    useEffect(() => {
+      const unsuscirbe = auth.onAuthStateChanged((user) => {
+        setCurrentUser(user);
+      });
+      return unsuscirbe;
+    }, []);
   //////// firebase authentication ends here ///////////////
 
   useEffect(() => {
@@ -80,7 +94,7 @@ export const MovieProvider = ({ children }) => {
         currentUser,
         login,
         signup,
-        logout,
+        logout,logInput, setLogInput,
         resetPassword,
         updatePassword,
         updateEmail,
@@ -92,6 +106,8 @@ export const MovieProvider = ({ children }) => {
         movie,
         setMovie,
         detailMovie,
+        input,
+        setInput,
       }}
     >
       {children}

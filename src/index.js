@@ -6,12 +6,10 @@ import App from "./App";
 import { MovieProvider } from "./context";
 
 ReactDOM.render(
-  <React.StrictMode>
     <MovieProvider>
       <Router>
         <App />
       </Router>
-    </MovieProvider>
-  </React.StrictMode>,
+    </MovieProvider>,
   document.getElementById("root")
 );

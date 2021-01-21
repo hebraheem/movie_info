@@ -14,10 +14,10 @@ import {
   MailOutline,
   VpnKey,
 } from "@material-ui/icons";
-import React, { useRef, useState } from "react";
+import React, { useState } from "react";
 import { useMovieConsumer } from "../context";
 import Snack from './Snack';
-import {Link} from 'react-router-dom'
+import {Link, useHistory} from 'react-router-dom'
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -54,21 +54,26 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const SignUp = () => {
-  const { signup } = useMovieConsumer();
-  const emailRef = useRef("");
-  const passwordRef = useRef("");
-  const conPassRef = useRef("");
+  const { signup, input, setInput } = useMovieConsumer();
   const [error, setError] = useState("");
   const [delay, setDelay] = useState(false);
   const classes = useStyles();
+  const history = useHistory();
+
+  const handleChange=(e)=>{
+    const {value, name}= e.target;
+    setInput({...input, [name]:value})
+  }
 
   const handleSignup = async () => {
-    if (passwordRef.current.value !== conPassRef.current.value) {
+    if (input.password !== input.conPass) {
       return setError("Password not match");
     }
     try {
       setError('')
-      await signup(emailRef.current.value, passwordRef.current.value);
+      setDelay(true)
+      await signup(input.email, input.password);
+      history.push("/movie")
     } catch {
       setError("Your request cannot be completed")
     }
@@ -85,99 +90,113 @@ const SignUp = () => {
       </Typography>
       {error && <Snack message={error} severity="error" />}
       <Divider className={classes.body} />
-      <div className={classes.root}>
-        <TextField
-          label="Firstname"
-          variant="outlined"
-          required
-          InputProps={{
-            startAdornment: (
-              <InputAdornment position="start">
-                <AccountCircle />
-              </InputAdornment>
-            ),
-          }}
-        />
-        <TextField
-          label="Lastname"
-          variant="outlined"
-          required
-          InputProps={{
-            startAdornment: (
-              <InputAdornment position="start">
-                <AccountCircle />
-              </InputAdornment>
-            ),
-          }}
-        />
-      </div>
-      <div>
-        <TextField
-          className={classes.input}
-          label="Email"
-          required
-          variant="outlined"
-          ref={emailRef}
-          InputProps={{
-            startAdornment: (
-              <InputAdornment position="start">
-                <MailOutline />
-              </InputAdornment>
-            ),
-          }}
-        />
-      </div>
-      <div>
-        <TextField
-          className={classes.input}
-          label="Password"
-          type="password"
-          required
-          ref={passwordRef}
-          variant="outlined"
-          InputProps={{
-            startAdornment: (
-              <InputAdornment position="start">
-                <VpnKey />
-              </InputAdornment>
-            ),
-          }}
-        />
-      </div>
-      <div>
-        <TextField
-          className={classes.input}
-          label="Confirm password"
-          variant="outlined"
-          type="password"
-          ref={conPassRef}
-          InputProps={{
-            startAdornment: (
-              <InputAdornment position="start">
-                <VpnKey />
-              </InputAdornment>
-            ),
-          }}
-        />
-      </div>
-      <div className={classes.checkbox}>
-        <Checkbox color="primary" />
-        <Typography variant="body1" style={{ paddingTop: "12px" }}>
-          I accept the terms of use & privacy policy.
-        </Typography>
-      </div>
-      <Button
-        endIcon={<Telegram />}
-        variant="contained"
-        disabled={delay}
-        color="primary"
-        size="large"
-        onClick={handleSignup}
-      >
-        Sign Up
-      </Button>
+      <form>
+        <div className={classes.root}>
+          <TextField
+            label="Firstname"
+            name="firstname"
+            value={input.firstname}
+            variant="outlined"
+            onChange={handleChange}
+            required
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="start">
+                  <AccountCircle />
+                </InputAdornment>
+              ),
+            }}
+          />
+          <TextField
+            label="Lastname"
+            name="lastname"
+            onChange={handleChange}
+            value={input.lastname}
+            variant="outlined"
+            required
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="start">
+                  <AccountCircle />
+                </InputAdornment>
+              ),
+            }}
+          />
+        </div>
+        <div>
+          <TextField
+            className={classes.input}
+            label="Email"
+            required
+            variant="outlined"
+            onChange={handleChange}
+            name="email"
+            value={input.email}
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="start">
+                  <MailOutline />
+                </InputAdornment>
+              ),
+            }}
+          />
+        </div>
+        <div>
+          <TextField
+            className={classes.input}
+            label="Password"
+            type="password"
+            name="password"
+            value={input.password}
+            required
+            onChange={handleChange}
+            variant="outlined"
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="start">
+                  <VpnKey />
+                </InputAdornment>
+              ),
+            }}
+          />
+        </div>
+        <div>
+          <TextField
+            className={classes.input}
+            label="Confirm password"
+            onChange={handleChange}
+            name="conPass"
+            value={input.conPass}
+            variant="outlined"
+            type="password"
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="start">
+                  <VpnKey />
+                </InputAdornment>
+              ),
+            }}
+          />
+        </div>
+        <div className={classes.checkbox}>
+          <Checkbox color="primary" />
+          <Typography variant="body1" style={{ paddingTop: "12px" }}>
+            I accept the terms of use & privacy policy.
+          </Typography>
+        </div>
+        <Button
+          endIcon={<Telegram />}
+          variant="contained"
+          disabled={delay}
+          color="primary"
+          size="large"
+          onClick={handleSignup}
+        >
+          Sign Up
+        </Button>
+      </form>
       <Typography variant="body2" style={{ paddingTop: "20px" }}>
-        All ready have account? {" "}
+        All ready have account?{" "}
         <Link style={{ textDecoration: "none", color: "black" }} to="/login">
           login here
         </Link>

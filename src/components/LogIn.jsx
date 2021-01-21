@@ -72,7 +72,7 @@ const LogIn = () => {
       await login(logInput.email, logInput.password)
       history.push("/movie")
     } catch{
-      setError("Unable to log you in")
+      setError("user data not found")
     }
   }
 

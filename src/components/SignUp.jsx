@@ -180,7 +180,7 @@ const SignUp = () => {
         </div>
         <div className={classes.checkbox}>
           <Checkbox color="primary" />
-          <Typography variant="body1" style={{ paddingTop: "12px" }}>
+          <Typography variant="body2" style={{ paddingTop: "12px" }}>
             I accept the terms of use & privacy policy.
           </Typography>
         </div>

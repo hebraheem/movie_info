@@ -73,7 +73,7 @@ export default function Movies() {
             : "Not availabe";
           return (
             searchfilter && (
-              <Grid item sm={12} md={6} lg={4} key={movie.id}>
+              <Grid item sm={12} md={6} lg={4} key={movie.id} style={{margin: "0 auto"}}>
                 <Link className={classes.link} to="/movie_info">
                   <Card className={classes.card}>
                     <CardHeader title={`Name: ${movie.name}`} />

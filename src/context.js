@@ -5,6 +5,7 @@ import axios from "axios"
 const movieContext = React.createContext();
 const moviesUrl = "http://api.tvmaze.com/shows";
 const movies_infoUrl = "http://api.tvmaze.com/shows/20";
+//const movie_date = "http://api.tvmaze.com/schedule?country=US&date=2020-12-24";
 
 export const MovieProvider = ({ children }) => {
   const [currentUser, setCurrentUser] = useState("");
@@ -60,6 +61,18 @@ export const MovieProvider = ({ children }) => {
         setLoading(false);
       });
     }, []);
+
+    function getMovie(id){
+     const singeleMovie = movies.find(movie =>movie.id === id) 
+     return singeleMovie
+     
+    }
+
+    function detailMovie(id){
+      const detailM = getMovie(id)
+      setMovie([detailM]);
+    }
+
   
   return (
     <movieContext.Provider
@@ -76,7 +89,9 @@ export const MovieProvider = ({ children }) => {
         loading,
         search,
         setSearch,
-        movie, setMovie,
+        movie,
+        setMovie,
+        detailMovie,
       }}
     >
       {children}

@@ -11,14 +11,17 @@ import {
 import {
   ExitToApp,
   MailOutline,
-  VpnKey,
+  VisibilityOff,
+  Visibility,
 } from "@material-ui/icons";
-import React,{useRef} from "react";
-import {useMovieConsumer} from "../context"
+import React, { useRef, useState } from "react";
+//import {useMovieConsumer} from "../context"
+import { Link } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
-    width: "50%",
+    width: "40%",
+    minWidth: "400px",
     margin: "50px auto",
     padding: theme.spacing(4),
   },
@@ -39,14 +42,23 @@ const useStyles = makeStyles((theme) => ({
   body: {
     marginBottom: theme.spacing(4),
   },
+  password: {
+    display: "flex",
+    justifyContent: "space-between",
+    justifyItems: "center",
+  },
+  reset: {
+    paddingTop: "20px",
+    paddingRight: "20px",
+  },
 }));
 
 const LogIn = () => {
-const emailRef = useRef();
-const passwordRef= useRef();
+  const emailRef = useRef();
+  const passwordRef = useRef();
+  const [showType, setShowType] = useState(false);
   const classes = useStyles();
-  const {hello} = useMovieConsumer();
-  console.log(hello)
+
   return (
     <Paper className={classes.paper}>
       <Typography variant="h2" className={classes.header}>
@@ -59,7 +71,7 @@ const passwordRef= useRef();
       <div>
         <TextField
           className={classes.input}
-          ref = {emailRef}
+          ref={emailRef}
           label="Email"
           variant="outlined"
           InputProps={{
@@ -74,23 +86,35 @@ const passwordRef= useRef();
       <div>
         <TextField
           className={classes.input}
-          ref ={passwordRef}
+          ref={passwordRef}
           label="Password"
-          type="password"
+          type={showType ? "text" : "password"}
           variant="outlined"
           InputProps={{
-            startAdornment: (
-              <InputAdornment position="start">
-                <VpnKey />
+            endAdornment: (
+              <InputAdornment position="end">
+                <Button onClick={() => setShowType(!showType)}>
+                  {showType ? <Visibility /> : <VisibilityOff />}
+                </Button>
               </InputAdornment>
             ),
           }}
         />
       </div>
-      <div className={classes.checkbox}>
-        <Checkbox color="primary"/>
-        <Typography variant="body1" style={{ paddingTop: "12px" }}>
-          Remember password.
+      <div className={classes.password}>
+        <div className={classes.checkbox}>
+          <Checkbox color="primary" />
+          <Typography variant="body1" style={{ paddingTop: "12px" }}>
+            Remember password.
+          </Typography>
+        </div>
+        <Typography className={classes.reset} variant="body2">
+          <Link
+            to="/reset_pass"
+            style={{ textDecoration: "none", color: "black" }}
+          >
+            Reset Password
+          </Link>
         </Typography>
       </div>
       <Button
@@ -102,7 +126,10 @@ const passwordRef= useRef();
         Log In
       </Button>
       <Typography variant="body2" style={{ paddingTop: "20px" }}>
-        Don't have account? Sign Up here
+        Don't have account?{" "}
+        <Link style={{ textDecoration: "none", color: "black" }} to="/signup">
+          Sign Up here
+        </Link>
       </Typography>
     </Paper>
   );

@@ -21,7 +21,7 @@ const useStyles = makeStyles(() => ({
   },
   card: {
     width: "320px",
-    margin: "20px",
+    margin: "20px auto",
     transitionProperty: "transform",
     transitionDuration: "1s",
     "&:hover": {
@@ -31,7 +31,7 @@ const useStyles = makeStyles(() => ({
     },
   },
   search: {
-    margin: "20px",
+    margin: "20px 0 20px 50px",
     width: "300px",
   },
   link: {
@@ -41,7 +41,13 @@ const useStyles = makeStyles(() => ({
 }));
 
 export default function Movies() {
-  const { movies, loading, search, setSearch } = useMovieConsumer();
+  const {
+    movies,
+    loading,
+    search,
+    setSearch,
+    detailMovie,
+  } = useMovieConsumer();
   const classes = useStyles();
 
   return (
@@ -75,6 +81,7 @@ export default function Movies() {
                       image={movie.image.medium}
                       title={movie.name}
                       className={classes.media}
+                      onClick={() => detailMovie(movie.id)}
                     />
                     <CardContent>
                       <Typography variant="h6">

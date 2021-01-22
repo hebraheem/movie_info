@@ -19,17 +19,14 @@ function App() {
       <div>
          <Navbar />
         <Switch>
-          <Route exact path="/" component={Home} />
+          <PrivateRoute exact path="/" component={Movies} />
+          <Route exact path="/home" component={Home} />
           <Route path="/signup" component={SignUp} />
           <Route path="/login" component={LogIn} />
           <Route path="/reset_pass" component={ResetPass} />
-          <Route path="/movie" component={Movies} />
-          <Route path="/movie_info" component={MovieInfo} />
+          <PrivateRoute path="/movie_info" component={MovieInfo} />
         </Switch>
-      </div>
-      {/* <div>
-        <Drawer />
-      </div> */}
+      </div>   
       <CssBaseline />
     </>
   );

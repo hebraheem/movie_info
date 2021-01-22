@@ -25,6 +25,7 @@ export const MovieProvider = ({ children }) => {
   const [currentUser, setCurrentUser] = useState("");
   const [movies, setMovies] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [check, setCheck] = useState(true);
   const [search, setSearch] = useState('');
   const [movie, setMovie] = useState([]);
 
@@ -54,6 +55,7 @@ export const MovieProvider = ({ children }) => {
 
     useEffect(() => {
       const unsuscirbe = auth.onAuthStateChanged((user) => {
+        setCheck(false)
         setCurrentUser(user);
       });
       return unsuscirbe;
@@ -94,7 +96,9 @@ export const MovieProvider = ({ children }) => {
         currentUser,
         login,
         signup,
-        logout,logInput, setLogInput,
+        logout,
+        logInput,
+        setLogInput,
         resetPassword,
         updatePassword,
         updateEmail,
@@ -110,7 +114,7 @@ export const MovieProvider = ({ children }) => {
         setInput,
       }}
     >
-      {children}
+      {!check &&  children }
     </movieContext.Provider>
   );
 };

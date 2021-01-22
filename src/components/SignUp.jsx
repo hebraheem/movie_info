@@ -29,13 +29,13 @@ const useStyles = makeStyles((theme) => ({
   root: {
     "& > *": {
       margin: "auto",
-      marginRight: theme.spacing(2),
-      width: "46%",
+      marginRight: theme.spacing(3),
+      width: "40%",
       marginBottom: theme.spacing(4),
     },
   },
   input: {
-    width: "100%",
+    width: "90%",
     paddingBottom: theme.spacing(4),
   },
   checkbox: {
@@ -73,9 +73,9 @@ const SignUp = () => {
       setError('')
       setDelay(true)
       await signup(input.email, input.password);
-      history.push("/movie")
-    } catch {
-      setError("Your request cannot be completed")
+      history.push("/")
+    } catch(err) {
+      setError(err.message)
     }
     setDelay(false)
   };

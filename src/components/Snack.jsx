@@ -17,7 +17,7 @@ const Snack = ({ message, severity }) => {
     <Snackbar
       open={open}
       anchorOrigin={{ vertical, horizontal }}
-      autoHideDuration={3000}
+      autoHideDuration={6000}
       onClose={handleClose}
     >
       <Alert severity={severity} onClose={handleClose}>

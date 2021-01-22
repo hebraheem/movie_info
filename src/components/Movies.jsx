@@ -10,7 +10,7 @@ import {
 } from "@material-ui/core";
 import React from "react";
 import { useMovieConsumer } from "../context";
-import { Star, Search } from "@material-ui/icons";
+import { Star} from "@material-ui/icons";
 import Loading from "./Loading";
 import {Link} from 'react-router-dom';
 

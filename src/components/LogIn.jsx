@@ -67,12 +67,13 @@ const LogIn = () => {
   };
 
   const HandleLogin=async()=>{
+
     try{
       setError('')
       await login(logInput.email, logInput.password)
-      history.push("/movie")
-    } catch{
-      setError("user data not found")
+      history.push("/")
+    } catch(err){
+      setError(err.message)
     }
   }
 
@@ -106,6 +107,8 @@ const LogIn = () => {
         </div>
         <div>
           <TextField
+            // error={logInput.password <= 6}
+            // helperText="password must be greater than 6 digit"
             className={classes.input}
             label="Password"
             name="password"

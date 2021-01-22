@@ -70,6 +70,10 @@ const Navbar = () => {
                 : "Your favMOVies StOp"}{" "}
               {currentUser && (
                 <div style={{ display: "flex" }}>
+                  <Avatar className={classes.orange}>
+                    {input.email.charAt(0).toUpperCase() ||
+                      logInput.email.charAt(0).toUpperCase()}
+                  </Avatar> {" "}
                   <Button
                     variant="contained"
                     color="primary"
@@ -78,10 +82,6 @@ const Navbar = () => {
                   >
                     log out
                   </Button>{" "}
-                  <Avatar className={classes.orange}>
-                    {input.email.charAt(0).toUpperCase() ||
-                      logInput.email.charAt(0).toUpperCase()}
-                  </Avatar>
                 </div>
               )}
             </Typography>

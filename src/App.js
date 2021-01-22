@@ -20,11 +20,11 @@ function App() {
          <Navbar />
         <Switch>
           <PrivateRoute exact path="/" component={Movies} />
+          <PrivateRoute path="/movie_info" component={MovieInfo} />
           <Route exact path="/home" component={Home} />
           <Route path="/signup" component={SignUp} />
           <Route path="/login" component={LogIn} />
           <Route path="/reset_pass" component={ResetPass} />
-          <PrivateRoute path="/movie_info" component={MovieInfo} />
         </Switch>
       </div>   
       <CssBaseline />

@@ -22,7 +22,7 @@ import {Link, useHistory} from 'react-router-dom'
 const useStyles = makeStyles((theme) => ({
   paper: {
     width: "40%",
-    minWidth: "400px",
+    minWidth: "350px",
     margin: "50px auto",
     padding: theme.spacing(4),
   },
@@ -56,6 +56,7 @@ const useStyles = makeStyles((theme) => ({
 const SignUp = () => {
   const { signup, input, setInput } = useMovieConsumer();
   const [error, setError] = useState("");
+  const [check, setChecked] = useState(false);
   const [delay, setDelay] = useState(false);
   const classes = useStyles();
   const history = useHistory();
@@ -68,6 +69,9 @@ const SignUp = () => {
   const handleSignup = async () => {
     if (input.password !== input.conPass) {
       return setError("Password not match");
+    }
+    if(!check){
+      return setError("please Accept privacy term");
     }
     try {
       setError('')
@@ -179,7 +183,7 @@ const SignUp = () => {
           />
         </div>
         <div className={classes.checkbox}>
-          <Checkbox color="primary" />
+          <Checkbox color="primary" checked={check} onChange={(e)=>setChecked(e.target.checked)}/>
           <Typography variant="body2" style={{ paddingTop: "12px" }}>
             I accept the terms of use & privacy policy.
           </Typography>

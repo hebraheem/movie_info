@@ -47,10 +47,11 @@ export default function Movies() {
     search,
     setSearch,
     detailMovie,
+    currentUser
   } = useMovieConsumer();
   const classes = useStyles();
 
-  return (
+  return ( currentUser &&
     <>
       {!loading && (
         <>

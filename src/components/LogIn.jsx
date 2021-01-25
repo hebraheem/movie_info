@@ -22,7 +22,7 @@ import Snack from './Snack'
 const useStyles = makeStyles((theme) => ({
   paper: {
     width: "40%",
-    minWidth: "400px",
+    minWidth: "350px",
     margin: "50px auto",
     padding: theme.spacing(4),
   },
@@ -67,12 +67,13 @@ const LogIn = () => {
   };
 
   const HandleLogin=async()=>{
+
     try{
       setError('')
       await login(logInput.email, logInput.password)
-      history.push("/movie")
-    } catch{
-      setError("Unable to log you in")
+      history.push("/")
+    } catch(err){
+      setError(err.message)
     }
   }
 
@@ -106,6 +107,8 @@ const LogIn = () => {
         </div>
         <div>
           <TextField
+            // error={logInput.password <= 6}
+            // helperText="password must be greater than 6 digit"
             className={classes.input}
             label="Password"
             name="password"

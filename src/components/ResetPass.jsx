@@ -16,7 +16,7 @@ import Snack from "./Snack";
 const useStyles = makeStyles((theme) => ({
   paper: {
     width: "40%",
-    minWidth: "400px",
+    minWidth: "350px",
     margin: "50px auto",
     padding: theme.spacing(4),
   },
@@ -45,8 +45,8 @@ const ResetPass = () => {
     try {
       await resetPassword(emailField);
       setMessage("Password reset send, Check your Email.");
-    } catch {
-      setError("Password reset failed");
+    } catch(err){
+      setError(err.message);
     }
   };
 

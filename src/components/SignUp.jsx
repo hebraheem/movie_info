@@ -22,20 +22,20 @@ import {Link, useHistory} from 'react-router-dom'
 const useStyles = makeStyles((theme) => ({
   paper: {
     width: "40%",
-    minWidth: "400px",
+    minWidth: "350px",
     margin: "50px auto",
     padding: theme.spacing(4),
   },
   root: {
     "& > *": {
       margin: "auto",
-      marginRight: theme.spacing(2),
-      width: "46%",
+      marginRight: theme.spacing(3),
+      width: "40%",
       marginBottom: theme.spacing(4),
     },
   },
   input: {
-    width: "100%",
+    width: "90%",
     paddingBottom: theme.spacing(4),
   },
   checkbox: {
@@ -56,6 +56,7 @@ const useStyles = makeStyles((theme) => ({
 const SignUp = () => {
   const { signup, input, setInput } = useMovieConsumer();
   const [error, setError] = useState("");
+  const [check, setChecked] = useState(false);
   const [delay, setDelay] = useState(false);
   const classes = useStyles();
   const history = useHistory();
@@ -69,13 +70,16 @@ const SignUp = () => {
     if (input.password !== input.conPass) {
       return setError("Password not match");
     }
+    if(!check){
+      return setError("please Accept privacy term");
+    }
     try {
       setError('')
       setDelay(true)
       await signup(input.email, input.password);
-      history.push("/movie")
-    } catch {
-      setError("Your request cannot be completed")
+      history.push("/")
+    } catch(err) {
+      setError(err.message)
     }
     setDelay(false)
   };
@@ -179,8 +183,8 @@ const SignUp = () => {
           />
         </div>
         <div className={classes.checkbox}>
-          <Checkbox color="primary" />
-          <Typography variant="body1" style={{ paddingTop: "12px" }}>
+          <Checkbox color="primary" checked={check} onChange={(e)=>setChecked(e.target.checked)}/>
+          <Typography variant="body2" style={{ paddingTop: "12px" }}>
             I accept the terms of use & privacy policy.
           </Typography>
         </div>

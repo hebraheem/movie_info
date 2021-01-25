@@ -9,7 +9,7 @@ import React from "react";
 import { useMovieConsumer } from "../context";
 import Loading from "./Loading";
 import { Star } from "@material-ui/icons";
-import {Link} from 'react-router-dom';
+import { Link } from "react-router-dom";
 
 const useStyles = makeStyles(() => ({
   container: {
@@ -65,7 +65,9 @@ export default function MovieInfo() {
               </Grid>
               <Grid item xs={12} md={7} className={classes.gridItem}>
                 <Typography variant="h3">{detail.name}</Typography>
-                <Typography variant="h6">Genres: {detail.genres.toString()}</Typography>
+                <Typography variant="h6">
+                  Genres: {detail.genres.toString()}
+                </Typography>
                 <Typography variant="h6">
                   Rating: {detail.rating.average} {<Star />}
                 </Typography>
@@ -95,7 +97,7 @@ export default function MovieInfo() {
       </Grid>
       <div style={{ textAlign: "center", margin: "50px 0" }}>
         <Button variant="outlined" color="primary" size="large">
-          <Link to ="/movie" className={classes.link}>
+          <Link to="/" className={classes.link}>
             go back
           </Link>
         </Button>

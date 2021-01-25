@@ -1,7 +1,6 @@
-import { CssBaseline, makeStyles } from "@material-ui/core";
+import { CssBaseline} from "@material-ui/core";
 import React from "react";
 import Navbar from "./components/Navbar";
-//import Drawer from "./components/Drawer";
 import Home from "./components/Home";
 import SignUp from "./components/SignUp";
 import LogIn from "./components/LogIn";
@@ -10,32 +9,34 @@ import MovieInfo from "./components/MovieInfo";
 import { Route, Switch } from "react-router-dom";
 import PrivateRoute from './components/PrivateRoute'
 import ResetPass from "./components/ResetPass";
+import {useMovieConsumer} from './context'
+import PublicRoute from "./components/PublicRoute";
 
-const useStyles = makeStyles(() => ({
-  // main: {
-  //   width: "100%",
-  //   paddingLeft: "200px",
-  // },
-}));
 
 function App() {
-  const classes = useStyles();
+  const {currentUser} = useMovieConsumer();
   return (
     <>
-      <div className={classes.main}>
+      <div>
         <Navbar />
         <Switch>
-          <Route exact path="/" component={Home} />
-          <Route path="/signup" component={SignUp} />
-          <Route path="/login" component={LogIn} />
-          <Route path="/reset_pass" component={ResetPass} />
-          <PrivateRoute path="/movie" component={Movies} />
-          <PrivateRoute path="/movie_info" component={MovieInfo} />
+          <PrivateRoute
+            exact
+            path="/"
+            component={Movies}
+            currentUser={currentUser}
+          />
+          <PrivateRoute
+            path="/movie_info"
+            component={MovieInfo}
+            currentUser={currentUser}
+          />
+          <PublicRoute exact path="/home" component={Home} />
+          <PublicRoute path="/signup" component={SignUp} />
+          <PublicRoute path="/login" component={LogIn} />
+          <PublicRoute path="/reset_pass" component={ResetPass} />
         </Switch>
       </div>
-      {/* <div>
-        <Drawer />
-      </div> */}
       <CssBaseline />
     </>
   );

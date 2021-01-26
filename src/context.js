@@ -1,6 +1,7 @@
 import React, { useContext, useState, useEffect } from "react";
 import { auth } from "./firebase";
 import axios from "axios"
+import {useQuery} from 'react-query';
 
 const movieContext = React.createContext();
 const moviesUrl = "http://api.tvmaze.com/shows";
@@ -62,13 +63,29 @@ export const MovieProvider = ({ children }) => {
     }, []);
   //////// firebase authentication ends here ///////////////
 
-  useEffect(() => {
-    axios.get(moviesUrl).then((res) => {
-     const movies = res.data;
-      setMovies(movies);
-      setLoading(false)
-    });
-  }, []);
+  // const { isLoading, error, data } = useQuery(movies, () => {
+  //     fetch(moviesUrl).then((res) => res.json())
+  //     console.log(data);
+  //   }
+    
+  // );
+
+     const { isLoading, error, data } = useQuery("repoData", () => {
+        fetch("https://api.github.com/repos/tannerlinsley/react-query").then((res) =>
+          res.json()
+        );
+        console.log(data)
+     }
+       
+     );
+
+  // useEffect(() => {
+  //   axios.get(moviesUrl).then((res) => {
+  //    const movies = res.data;
+  //     setMovies(movies);
+  //     setLoading(false)
+  //   });
+  // }, []);
 
     useEffect(() => {
       axios.get(movies_infoUrl).then((res) => {

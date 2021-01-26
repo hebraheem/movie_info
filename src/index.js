@@ -4,12 +4,22 @@ import "./index.css";
 import { BrowserRouter as Router } from "react-router-dom";
 import App from "./App";
 import { MovieProvider } from "./context";
+import { QueryClient, QueryClientProvider } from "react-query";
+
+const queryClient = new QueryClient();
 
 ReactDOM.render(
-    <MovieProvider>
-      <Router>
+  <MovieProvider>
+    <Router>
+      <QueryClientProvider client={queryClient}>
         <App />
-      </Router>
-    </MovieProvider>,
+      </QueryClientProvider>
+    </Router>
+  </MovieProvider>,
   document.getElementById("root")
 );
+
+  //  <QueryClientProvider client={queryClient}>
+  //    <MyApp />
+  //    <ReactQueryDevtools initialIsOpen={false} />
+  //  </QueryClientProvider>;

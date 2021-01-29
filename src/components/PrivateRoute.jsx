@@ -5,7 +5,7 @@ import { useMovieConsumer } from "../context";
 function PrivateRoute({ component: Component, ...rest }) {
   const { currentUser } = useMovieConsumer();
   return (
-    <Route
+    <Route 
      {...rest}
       render={(props) => {
         return currentUser ? <Component {...props} /> :  <Redirect to="/home" />;

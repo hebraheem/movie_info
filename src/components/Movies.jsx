@@ -10,9 +10,10 @@ import {
 } from "@material-ui/core";
 import React from "react";
 import { useMovieConsumer } from "../context";
-import { Star} from "@material-ui/icons";
+import { Star } from "@material-ui/icons";
 import Loading from "./Loading";
-import {Link} from 'react-router-dom';
+import { Link, useHistory } from "react-router-dom";
+import { useQuery } from "react-query";
 
 const useStyles = makeStyles(() => ({
   media: {
@@ -41,48 +42,70 @@ const useStyles = makeStyles(() => ({
 }));
 
 export default function Movies() {
+  const history = useHistory();
+
+  const { isLoading, error, data } = useQuery("Data", () =>
+    fetch("http://api.tvmaze.com/shows").then((res) => res.json())
+  );
+  //console.log(data, error, isLoading);
+
   const {
     movies,
     loading,
     search,
     setSearch,
     detailMovie,
-    currentUser
+    currentUser,
   } = useMovieConsumer();
   const classes = useStyles();
 
-  return ( currentUser &&
-    <>
-      {!loading && (
-        <>
-        <TextField
-          label="Search"
-          variant="standard"
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
-          className={classes.search}
-        />
-        </>
-      )}
+  if (isLoading) return <Loading />;
 
-      <Grid container>
-        {loading && <Loading />}
-        {movies.map((movie) => {
-          let searchfilter = movie.name.includes(search.charAt(0).toUpperCase());
-          const checkCountry = movie.network
-            ? movie.network.country.name
-            : "Not availabe";
-          return (
-            searchfilter && (
-              <Grid item sm={12} md={6} lg={4} key={movie.id} style={{margin: "0 auto"}}>
-                <Link className={classes.link} to="/movie_info">
-                  <Card className={classes.card}>
+  if (error) return error.message;
+
+  return (
+    currentUser && (
+      <>
+        {!loading && (
+          <>
+            <TextField
+              label="Search"
+              variant="standard"
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+              className={classes.search}
+            />
+          </>
+        )}
+
+        <Grid container>
+          {/* {loading && <Loading />} */}
+          {data.map((movie) => {
+            let searchfilter = movie.name.includes(
+              search.charAt(0).toUpperCase()
+            );
+            const checkCountry = movie.network
+              ? movie.network.country.name
+              : "Not availabe";
+            return (
+              searchfilter && (
+                <Grid
+                  item
+                  sm={12}
+                  md={6}
+                  lg={4}
+                  key={movie.id}
+                  style={{ margin: "0 auto" }}
+                >
+                  <Card
+                    className={classes.card}
+                    onClick={() => history.push(`/movie/${movie.id}`)}
+                  >
                     <CardHeader title={`Name: ${movie.name}`} />
                     <CardMedia
                       image={movie.image.medium}
                       title={movie.name}
                       className={classes.media}
-                      onClick={() => detailMovie(movie.id)}
                     />
                     <CardContent>
                       <Typography variant="h6">
@@ -96,12 +119,12 @@ export default function Movies() {
                       </Typography>
                     </CardContent>
                   </Card>
-                </Link>
-              </Grid>
-            )
-          );
-        })}
-      </Grid>
-    </>
+                </Grid>
+              )
+            );
+          })}
+        </Grid>
+      </>
+    )
   );
 }

@@ -9,7 +9,8 @@ import React from "react";
 import { useMovieConsumer } from "../context";
 import Loading from "./Loading";
 import { Star } from "@material-ui/icons";
-import { Link } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
+import {useQuery} from 'react-query';
 
 const useStyles = makeStyles(() => ({
   container: {
@@ -30,10 +31,21 @@ const useStyles = makeStyles(() => ({
     textDecoration: "none",
   },
 }));
-export default function MovieInfo() {
+export default function MovieInfo(props) {
   const classes = useStyles();
+  const {id} = useParams();
+
   const { loading, movie, search, setSearch } = useMovieConsumer();
-  //const searchDate = movie.
+
+  const { isLoading, error, data } = useQuery(["repoData", id], () =>
+    fetch(`http://api.tvmaze.com/shows/${id}`)
+    .then((res) => res.json())
+  );
+
+  if (isLoading) return <Loading/>
+
+  if(error) return error.message
+
   return (
     <>
       {!loading && (
@@ -48,8 +60,8 @@ export default function MovieInfo() {
         </>
       )}
       <Grid container className={classes.container}>
-        {loading && <Loading />}
-        {movie.map((detail) => {
+        {/* {loading && <Loading />} */}
+        {[data].map((detail) => {
           const regex = /(<([^>]+)>)/gi;
           const checkCountry = detail.network
             ? detail.network.country.name

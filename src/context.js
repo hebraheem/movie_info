@@ -1,7 +1,7 @@
 import React, { useContext, useState, useEffect } from "react";
 import { auth } from "./firebase";
-import axios from "axios"
-import {useQuery} from 'react-query';
+import axios from "axios";
+//import { useQuery } from "react-query";
 
 const movieContext = React.createContext();
 const moviesUrl = "http://api.tvmaze.com/shows";
@@ -25,9 +25,9 @@ export const MovieProvider = ({ children }) => {
   const [logInput, setLogInput] = useState(loginValue);
   const [currentUser, setCurrentUser] = useState("");
   const [movies, setMovies] = useState([]);
-  const [loading, setLoading] = useState(true);
+  //const [loading, setLoading] = useState(true);
   const [check, setCheck] = useState(true);
-  const [search, setSearch] = useState('');
+  const [search, setSearch] = useState("");
   const [movie, setMovie] = useState([]);
 
   /// firebase authentication starts here ///////////
@@ -54,30 +54,15 @@ export const MovieProvider = ({ children }) => {
     return currentUser.updateEmail(email);
   }
 
-    useEffect(() => {
-      const unsuscirbe = auth.onAuthStateChanged((user) => {
-        setCheck(false)
-        setCurrentUser(user);
-      });
-      return unsuscirbe;
-    }, []);
-  //////// firebase authentication ends here ///////////////
+  useEffect(() => {
+    const unsuscirbe = auth.onAuthStateChanged((user) => {
+      setCheck(false);
+      setCurrentUser(user);
+    });
+    return unsuscirbe;
+  }, []);
+  //////// firebase authentication ends here //////////////
 
-  // const { isLoading, error, data } = useQuery(movies, () => {
-  //     fetch(moviesUrl).then((res) => res.json())
-  //     console.log(data);
-  //   }
-    
-  // );
-
-     const { isLoading, error, data } = useQuery("repoData", () => {
-        fetch("https://api.github.com/repos/tannerlinsley/react-query").then((res) =>
-          res.json()
-        );
-        console.log(data)
-     }
-       
-     );
 
   // useEffect(() => {
   //   axios.get(moviesUrl).then((res) => {
@@ -87,26 +72,26 @@ export const MovieProvider = ({ children }) => {
   //   });
   // }, []);
 
-    useEffect(() => {
-      axios.get(movies_infoUrl).then((res) => {
-        const movie = res.data;
-        setMovie([movie]);
-        setLoading(false);
-      });
-    }, []);
+  //console.log(movies);
 
-    function getMovie(id){
-     const singeleMovie = movies.find(movie =>movie.id === id) 
-     return singeleMovie
-     
-    }
+  // useEffect(() => {
+  //   axios.get(movies_infoUrl).then((res) => {
+  //     const movie = res.data;
+  //     setMovie([movie]);
+  //     setLoading(false);
+  //   });
+  // }, []);
 
-    function detailMovie(id){
-      const detailM = getMovie(id)
-      setMovie([detailM]);
-    }
+  // function getMovie(id) {
+  //   const singeleMovie = movies.find((movie) => movie.id === id);
+  //   return singeleMovie;
+  // }
 
-  
+  // function detailMovie(id) {
+  //   const detailM = getMovie(id);
+  //   setMovie([detailM]);
+  // }
+
   return (
     <movieContext.Provider
       value={{
@@ -119,19 +104,19 @@ export const MovieProvider = ({ children }) => {
         resetPassword,
         updatePassword,
         updateEmail,
-        movies,
-        setMovies,
-        loading,
+        // movies,
+        // setMovies,
+        //loading,
         search,
         setSearch,
-        movie,
-        setMovie,
-        detailMovie,
+        // movie,
+        // setMovie,
+        // detailMovie,
         input,
         setInput,
       }}
     >
-      {!check &&  children }
+      {!check && children}
     </movieContext.Provider>
   );
 };

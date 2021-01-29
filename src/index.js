@@ -5,10 +5,7 @@ import { BrowserRouter as Router } from "react-router-dom";
 import App from "./App";
 import { MovieProvider } from "./context";
 import { QueryClient, QueryClientProvider } from "react-query";
-//import { createBrowserHistory } from "history";
 
-// const history = createBrowserHistory();
-// console.log(history)
 const queryClient = new QueryClient();
 
 ReactDOM.render(

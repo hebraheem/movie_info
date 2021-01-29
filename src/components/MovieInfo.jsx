@@ -10,7 +10,7 @@ import { useMovieConsumer } from "../context";
 import Loading from "./Loading";
 import { Star } from "@material-ui/icons";
 import { useParams, Link } from "react-router-dom";
-import {useQuery} from 'react-query';
+import { useQuery } from "react-query";
 
 const useStyles = makeStyles(() => ({
   container: {
@@ -31,20 +31,19 @@ const useStyles = makeStyles(() => ({
     textDecoration: "none",
   },
 }));
-export default function MovieInfo(props) {
+export default function MovieInfo() {
   const classes = useStyles();
-  const {id} = useParams();
+  const { id } = useParams();
 
-  const { loading, movie, search, setSearch } = useMovieConsumer();
+  const { loading, search, setSearch } = useMovieConsumer();
 
   const { isLoading, error, data } = useQuery(["repoData", id], () =>
-    fetch(`http://api.tvmaze.com/shows/${id}`)
-    .then((res) => res.json())
+    fetch(`http://api.tvmaze.com/shows/${id}`).then((res) => res.json())
   );
 
-  if (isLoading) return <Loading/>
+  if (isLoading) return <Loading />;
 
-  if(error) return error.message
+  if (error) return error.message;
 
   return (
     <>
@@ -60,7 +59,6 @@ export default function MovieInfo(props) {
         </>
       )}
       <Grid container className={classes.container}>
-        {/* {loading && <Loading />} */}
         {[data].map((detail) => {
           const regex = /(<([^>]+)>)/gi;
           const checkCountry = detail.network

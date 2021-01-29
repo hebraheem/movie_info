@@ -12,7 +12,7 @@ import React from "react";
 import { useMovieConsumer } from "../context";
 import { Star } from "@material-ui/icons";
 import Loading from "./Loading";
-import { Link, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import { useQuery } from "react-query";
 
 const useStyles = makeStyles(() => ({
@@ -47,16 +47,8 @@ export default function Movies() {
   const { isLoading, error, data } = useQuery("Data", () =>
     fetch("http://api.tvmaze.com/shows").then((res) => res.json())
   );
-  //console.log(data, error, isLoading);
 
-  const {
-    movies,
-    loading,
-    search,
-    setSearch,
-    detailMovie,
-    currentUser,
-  } = useMovieConsumer();
+  const { loading, search, setSearch, currentUser } = useMovieConsumer();
   const classes = useStyles();
 
   if (isLoading) return <Loading />;
@@ -79,7 +71,6 @@ export default function Movies() {
         )}
 
         <Grid container>
-          {/* {loading && <Loading />} */}
           {data.map((movie) => {
             let searchfilter = movie.name.includes(
               search.charAt(0).toUpperCase()

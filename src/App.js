@@ -22,36 +22,18 @@ function App() {
           <PrivateRoute
             exact
             path="/"
-            //render={(props) => <Movies {...props} />}
             component={Movies}
             currentUser={currentUser}
           />
           <PrivateRoute
             path="/movie/:id"
             component={MovieInfo}
-            //render={(props) => <MovieInfo {...props} />}
             currentUser={currentUser}
           />
-          <PublicRoute
-            path="/home"
-            component={Home}
-            //render={(props) => <Home {...props} />}
-          />
-          <PublicRoute
-            path="/signup"
-            component={SignUp}
-            //render={(props) => <SignUp {...props} />}
-          />
-          <PublicRoute
-            path="/login"
-            component={LogIn}
-            //render={(props) => <LogIn {...props} />}
-          />
-          <PublicRoute
-            path="/reset_pass"
-            component={ResetPass}
-            //render={(props) => <ResetPass {...props} />}
-          />
+          <PublicRoute path="/home" component={Home} />
+          <PublicRoute path="/signup" component={SignUp} />
+          <PublicRoute path="/login" component={LogIn} />
+          <PublicRoute path="/reset_pass" component={ResetPass} />
         </Switch>
       </div>
       <CssBaseline />

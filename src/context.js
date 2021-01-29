@@ -1,12 +1,8 @@
 import React, { useContext, useState, useEffect } from "react";
 import { auth } from "./firebase";
-import axios from "axios";
-//import { useQuery } from "react-query";
 
 const movieContext = React.createContext();
-const moviesUrl = "http://api.tvmaze.com/shows";
-const movies_infoUrl = "http://api.tvmaze.com/shows/20";
-//const movie_date = "http://api.tvmaze.com/schedule?country=US&date=2020-12-24";
+
 const initialValue = {
   firstname: "",
   lastname: "",
@@ -24,11 +20,8 @@ export const MovieProvider = ({ children }) => {
   const [input, setInput] = useState(initialValue);
   const [logInput, setLogInput] = useState(loginValue);
   const [currentUser, setCurrentUser] = useState("");
-  const [movies, setMovies] = useState([]);
-  //const [loading, setLoading] = useState(true);
   const [check, setCheck] = useState(true);
   const [search, setSearch] = useState("");
-  const [movie, setMovie] = useState([]);
 
   /// firebase authentication starts here ///////////
   function signup(email, password) {
@@ -63,35 +56,6 @@ export const MovieProvider = ({ children }) => {
   }, []);
   //////// firebase authentication ends here //////////////
 
-
-  // useEffect(() => {
-  //   axios.get(moviesUrl).then((res) => {
-  //    const movies = res.data;
-  //     setMovies(movies);
-  //     setLoading(false)
-  //   });
-  // }, []);
-
-  //console.log(movies);
-
-  // useEffect(() => {
-  //   axios.get(movies_infoUrl).then((res) => {
-  //     const movie = res.data;
-  //     setMovie([movie]);
-  //     setLoading(false);
-  //   });
-  // }, []);
-
-  // function getMovie(id) {
-  //   const singeleMovie = movies.find((movie) => movie.id === id);
-  //   return singeleMovie;
-  // }
-
-  // function detailMovie(id) {
-  //   const detailM = getMovie(id);
-  //   setMovie([detailM]);
-  // }
-
   return (
     <movieContext.Provider
       value={{
@@ -104,14 +68,8 @@ export const MovieProvider = ({ children }) => {
         resetPassword,
         updatePassword,
         updateEmail,
-        // movies,
-        // setMovies,
-        //loading,
         search,
         setSearch,
-        // movie,
-        // setMovie,
-        // detailMovie,
         input,
         setInput,
       }}

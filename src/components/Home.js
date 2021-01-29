@@ -3,7 +3,6 @@ import React from "react";
 import { ExitToApp, Telegram } from "@material-ui/icons";
 import download from '../img/download.jpeg'
 import {Link} from "react-router-dom"
-import { useMovieConsumer } from "../context";
 
 const useStyles = makeStyles(() => ({
   button: {
@@ -24,7 +23,6 @@ const useStyles = makeStyles(() => ({
 
 const Home = () => {
   const classes = useStyles();
-  const {data} = useMovieConsumer()
 
   return (
     <div className={classes.button}>

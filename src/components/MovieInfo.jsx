@@ -38,7 +38,7 @@ export default function MovieInfo() {
   const { loading, search, setSearch } = useMovieConsumer();
 
   const { isLoading, error, data } = useQuery(["repoData", id], () =>
-    fetch(`http://api.tvmaze.com/shows/${id}`).then((res) => res.json())
+    fetch(`https://api.tvmaze.com/shows/${id}`).then((res) => res.json())
   );
 
   if (isLoading) return <Loading />;

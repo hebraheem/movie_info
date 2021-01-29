@@ -79,7 +79,7 @@ const SignUp = () => {
       await signup(input.email, input.password);
       history.push("/")
     } catch(err) {
-      setError(err.message)
+      setError(`${err.code} \n ${err.message}`)
     }
     setDelay(false)
   };

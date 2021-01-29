@@ -45,7 +45,7 @@ export default function Movies() {
   const history = useHistory();
 
   const { isLoading, error, data } = useQuery("Data", () =>
-    fetch("http://api.tvmaze.com/shows").then((res) => res.json())
+    fetch("https://api.tvmaze.com/shows").then((res) => res.json())
   );
 
   const { loading, search, setSearch, currentUser } = useMovieConsumer();
@@ -72,7 +72,7 @@ export default function Movies() {
 
         <Grid container>
           {data.map((movie) => {
-            let searchfilter = movie.name.includes(
+            let searchfilter = movie.name.startsWith(
               search.charAt(0).toUpperCase()
             );
             const checkCountry = movie.network

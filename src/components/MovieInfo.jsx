@@ -91,7 +91,8 @@ export default function MovieInfo() {
                   Run time: {detail.runtime}mins
                 </Typography>
                 <Typography variant="h6">
-                  OfficialSite: {detail.officialSite}
+                  OfficialSite:{" "}
+                  <a href={detail.officialSite} target= "_blank">{detail.officialSite}</a>
                 </Typography>
                 <Typography variant="h6">
                   Showing: {detail.schedule.time} {detail.schedule.days}
